@@ -39,6 +39,7 @@ end
 
 group :production do
   gem 'therubyracer-heroku'
+  gem 'pg'
 end
 
 group :test do
