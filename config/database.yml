@@ -31,17 +31,12 @@ test:
   password:
   socket: /tmp/mysql.sock
 
-# production:
-  # adapter: mysql2
-  # encoding: utf8
-  # reconnect: false
-  # database: one_production
-  # pool: 5
-  # username: root
-  # password:
-  # socket: /tmp/mysql.sock
-  production:
-  adapter: sqlite3
-  database: db/production.sqlite3
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: one_developement
   pool: 5
-  timeout: 5000
+  username: root
+  password:
+  socket: /tmp/mysql.sock
