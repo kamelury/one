@@ -16,10 +16,11 @@ class AuthenticationsController < ApplicationController
     else
       user = User.new
       user.apply_omniauth(omniauth)
+      Rails.logger.info("------------OMNIAUTH-------------: #{omniauth.inspect}") #TO REMOVE
       if user.save
         flash[:notice] = "Signed in successfully."
         sign_in_and_redirect(:user, user)
-      else
+      else 
         session[:omniauth] = omniauth.except('extra')
         redirect_to new_user_registration_url
       end

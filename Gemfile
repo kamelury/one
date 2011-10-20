@@ -16,6 +16,7 @@ gem 'json'
 gem 'multi_json'
 gem 'devise'
 gem 'twitter'
+gem 'koala'
 gem 'nifty-generators'
 gem 'omniauth'
 

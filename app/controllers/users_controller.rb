@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+   before_filter :authenticate_user!, :except => [:sign_in, :sign_up]
   # GET /users
   # GET /users.json
   def index
