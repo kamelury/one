@@ -34,9 +34,9 @@ class UsersController < ApplicationController
         config.oauth_token = authentication.token
         config.oauth_token_secret = authentication.secret
       end
-    @followers = Twitter.followers.users
-    @friends = Twitter.friends.users
-    @feeds = Twitter.home_timeline
+   # @followers = Twitter.followers.users
+   # @friends = Twitter.friends.users
+   # @feeds = Twitter.home_timeline
     end
     respond_to do |format|
       format.html # show.html.erb
