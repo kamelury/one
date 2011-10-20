@@ -3,6 +3,7 @@ One::Application.routes.draw do
   match 'auth/:provider/callback' => 'authentications#create'
   devise_for :users, :controllers =>  {:registrations => 'registrations'}
   get 'users/wall'
+  get 'users/tweet'
   resources :users
   resources :projects
   resources :authentications

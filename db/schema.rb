@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111020162113) do
+ActiveRecord::Schema.define(:version => 20111020213445) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20111020162113) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "token"
+    t.string   "secret"
   end
 
   create_table "projects", :force => true do |t|

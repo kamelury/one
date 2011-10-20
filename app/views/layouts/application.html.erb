@@ -16,7 +16,7 @@
 		</p>
 		<div id="user_nav">
 			<% if user_signed_in? %>
-			Signed in as <%= current_user.email %>. Not you?
+			Signed in as <%= current_user.email %>. <%= link_to "Add authentications", authentications_path %> Not you?
 			<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
 			<% else %>
 				<%if  params[:controller] != "authentications" %>

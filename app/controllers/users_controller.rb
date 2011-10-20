@@ -16,16 +16,28 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    # first, initialize a Graph API with your token
+    # Facebook feed
     if @user.authentications.find_by_provider('facebook')
       authentication = @user.authentications.find_by_provider('facebook')
       token = authentication.token
       @result = token
       @graph = Koala::Facebook::API.new(token) # 1.2beta and beyond
-      @profile = @graph.get_object("me")
-      @friends = @graph.get_connections("me", "friends")
+      @fb_profile = @graph.get_object("me")
+      @fb_friends = @graph.get_connections("me", "friends")
     end
-    Rails.logger.info("------------PARAMS-------------: #{params.inspect}") #TO REMOVE
+    
+    # Twitter feed
+    if @user.authentications.find_by_provider('twitter')   
+      authentication = @user.authentications.find_by_provider('twitter')
+     # Rails.logger.info("------------OMNIAUTH-------------: #{omniauth.inspect}") #TO REMOVE
+      Twitter.configure do |config|
+        config.oauth_token = authentication.token
+        config.oauth_token_secret = authentication.secret
+      end
+    @followers = Twitter.followers.users
+    @friends = Twitter.friends.users
+    @feeds = Twitter.home_timeline
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @user }
@@ -44,9 +56,22 @@ class UsersController < ApplicationController
       @graph.put_object("me", "feed", :message => params[:message])
       flash[:notice] = params[:message] + " was posted on your wall."
       redirect_to @user
-
     end
+  end
+  
+  def tweet
+      @user = User.find(params[:id])
 
+    if @user.authentications.find_by_provider('twitter')   
+      authentication = @user.authentications.find_by_provider('twitter')
+      Twitter.configure do |config|
+        config.oauth_token = authentication.token
+        config.oauth_token_secret = authentication.secret
+      end
+      Twitter.update(params[:message])
+      flash[:notice] = "You just tweeted: " + params[:message]
+      redirect_to @user
+    end
   end
   
   # GET /users/new
