@@ -7,6 +7,9 @@ class AuthenticationsController < ApplicationController
     omniauth = request.env["omniauth.auth"]
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
     if authentication
+    #update token?
+      authentication.token = (omniauth['credentials']['token'] rescue nil)
+      authentication.save
       flash[:notice] = "Signed in successfully."
       sign_in_and_redirect(:user, authentication.user)
     elsif current_user
@@ -16,7 +19,6 @@ class AuthenticationsController < ApplicationController
     else
       user = User.new
       user.apply_omniauth(omniauth)
-      Rails.logger.info("------------OMNIAUTH-------------: #{omniauth.inspect}") #TO REMOVE
       if user.save
         flash[:notice] = "Signed in successfully."
         sign_in_and_redirect(:user, user)

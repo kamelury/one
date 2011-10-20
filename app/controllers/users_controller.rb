@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-   before_filter :authenticate_user!, :except => [:sign_in, :sign_up]
+  before_filter :authenticate_user!, :except => [:sign_in, :sign_up]
   # GET /users
   # GET /users.json
   def index
@@ -16,12 +16,39 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
+    # first, initialize a Graph API with your token
+    if @user.authentications.find_by_provider('facebook')
+      authentication = @user.authentications.find_by_provider('facebook')
+      token = authentication.token
+      @result = token
+      @graph = Koala::Facebook::API.new(token) # 1.2beta and beyond
+      @profile = @graph.get_object("me")
+      @friends = @graph.get_connections("me", "friends")
+    end
+    Rails.logger.info("------------PARAMS-------------: #{params.inspect}") #TO REMOVE
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @user }
     end
   end
 
+  def wall
+  @user = User.find(params[:id])
+
+    # first, initialize a Graph API with your token
+    if @user.authentications.find_by_provider('facebook')
+      authentication = @user.authentications.find_by_provider('facebook')
+      token = authentication.token
+      @result = token
+      @graph = Koala::Facebook::API.new(token) # 1.2beta and beyond
+      @graph.put_object("me", "feed", :message => params[:message])
+      flash[:notice] = params[:message] + " was posted on your wall."
+      redirect_to @user
+
+    end
+
+  end
+  
   # GET /users/new
   # GET /users/new.json
   def new
