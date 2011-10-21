@@ -28,11 +28,11 @@ class UsersController < ApplicationController
     
     # Twitter feed
     if @user.authentications.find_by_provider('twitter')   
-      authentication = @user.authentications.find_by_provider('twitter')
-     # Rails.logger.info("------------OMNIAUTH-------------: #{omniauth.inspect}") #TO REMOVE
-    @followers = Twitter.followers.users
-    @friends = Twitter.friends.users
-    @feeds = Twitter.home_timeline
+     authentication = @user.authentications.find_by_provider('twitter')
+     client = Twitter::Client.new
+     @followers = client.followers.users
+     @friends = client.friends.users
+     @feeds = client.home_timeline
     end
     respond_to do |format|
       format.html # show.html.erb

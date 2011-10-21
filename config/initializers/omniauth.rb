@@ -13,7 +13,7 @@ if Rails.env.production? #jeden
 end
 elsif Rails.env.development? # one
   
-    Twitter.configure do |config|
+  Twitter.configure do |config|
     config.consumer_key = 'jPD7W2H0mTOf22I5rQlKnw'
     config.consumer_secret = 'SVycrKS5ivFl6LQsC3X3UETVgpISDtPAxWAosFrlBdE'
     config.oauth_token = '111110111110860-lyn9jJ0PGHXno0dJnmXimqnhhkh9n5mFbCrtjX33'

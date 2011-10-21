@@ -5,7 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
   
   private
-  def build_resoucre(*args)
+  def build_resource(*args)
     super
     if session[:omniauth]
       @user.apply_omniauth(session[:omniauth])
