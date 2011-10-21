@@ -1,7 +1,7 @@
 if Rails.env.production? #jeden
   
   Twitter.configure do |config|
-    config.consumer_key = 'W024j3GyIqvBV37qVbRkQ'
+    config.consumer_key = 'oW024j3GyIqvBV37qVbRkQ'
     config.consumer_secret = 'gF45LiqFY6hsusKwvA304qSYKjyKAy57b8nuzx1AcY'
     config.oauth_token = '111110860-8L2utRZ67w5johezNX8HesCp5FOrZUuSKiEPupNf'
     config.oauth_token_secret = 'xwzZ6xQ5bdljlV0gdybzCWph0RKVLu7oOVGzHswlnVU'
@@ -12,6 +12,14 @@ if Rails.env.production? #jeden
   provider :facebook, '287666267919319', '3d3e2366853b1947ed9f8d0d7e8ac5bf', :scope => 'publish_stream,offline_access,email'
 end
 elsif Rails.env.development? # one
+  
+    Twitter.configure do |config|
+    config.consumer_key = 'jPD7W2H0mTOf22I5rQlKnw'
+    config.consumer_secret = 'SVycrKS5ivFl6LQsC3X3UETVgpISDtPAxWAosFrlBdE'
+    config.oauth_token = '111110111110860-lyn9jJ0PGHXno0dJnmXimqnhhkh9n5mFbCrtjX33'
+    config.oauth_token_secret = 'tOMGi5j6SbT3yPjEpaUynBIW1v2gW435XZ23jXC2Y'
+  end
+  
  Rails.application.config.middleware.use OmniAuth::Builder do
   provider :twitter, 'jPD7W2H0mTOf22I5rQlKnw', 'SVycrKS5ivFl6LQsC3X3UETVgpISDtPAxWAosFrlBdE'
   provider :facebook, '273493032682753', 'bea8e589bf04007ffaa340c7ea72e0fd', :scope => 'publish_stream,offline_access,email'
@@ -19,11 +27,6 @@ elsif Rails.env.development? # one
 
 end
 end
-
-
-
-
-
       # :scope => 'email, user_about_me,user_activities,user_birthday,user_education_history,
                       # user_events,user_groups,user_hometown,user_interests,user_likes, user_location,
                       # user_religion_politics,
