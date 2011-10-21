@@ -30,13 +30,9 @@ class UsersController < ApplicationController
     if @user.authentications.find_by_provider('twitter')   
       authentication = @user.authentications.find_by_provider('twitter')
      # Rails.logger.info("------------OMNIAUTH-------------: #{omniauth.inspect}") #TO REMOVE
-      Twitter.configure do |config|
-        config.oauth_token = authentication.token
-        config.oauth_token_secret = authentication.secret
-      end
-    # @followers = Twitter.followers.users
-    # @friends = Twitter.friends.users
-    # @feeds = Twitter.home_timeline
+    @followers = Twitter.followers.users
+    @friends = Twitter.friends.users
+    @feeds = Twitter.home_timeline
     end
     respond_to do |format|
       format.html # show.html.erb
@@ -64,12 +60,6 @@ class UsersController < ApplicationController
 
     if @user.authentications.find_by_provider('twitter')   
       authentication = @user.authentications.find_by_provider('twitter')
-      Twitter.configure do |config|
-#        config.consumer_key       = 'jPD7W2H0mTOf22I5rQlKnw'
- #       config.consumer_secret    = 'SVycrKS5ivFl6LQsC3X3UETVgpISDtPAxWAosFrlBdE'
- #       config.oauth_token = authentication.token
- #       config.oauth_token_secret = authentication.secret
-      end
       client = Twitter::Client.new
       client.update(params[:message])
       flash[:notice] = "You just tweeted: " + params[:message]

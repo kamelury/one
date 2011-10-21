@@ -73,6 +73,74 @@
 	<% end %>
 	</p>
 <% end %>
+<p>
+<%	unless @followers.empty? %>
+	Followers:
+	<table>
+		  <tr>
+    <th>name</th>
+    <th>nick</th>
+    <th>location</th>
+    <th>url</th>
 
+  </tr>
+	<% @followers.each do |follower|%>
+		
+		<tr>
+			<td> <%= follower[:name] %> </td>
+			<td> <%= follower[:screen_name] %> </td>
+			<td> <%= follower[:location] %> </td>
+			<td> <%= follower[:url] %> </td>
+			
+		</tr>
+	<% end %>
+	</table>
+<% end %>
+</p>
+<p>
+<%	unless @friends.empty? %>
+	Friends:
+	<table>
+		  <tr>
+    <th>name</th>
+    <th>nick</th>
+    <th>location</th>
+    <th>url</th>
+
+  </tr>
+	<% @friends.each do |friend|%>
+		
+		<tr>
+			<td> <%= friend[:name] %> </td>
+			<td> <%= friend[:screen_name] %> </td>
+			<td> <%= friend[:location] %> </td>
+			<td> <%= friend[:url] %> </td>
+			
+		</tr>
+	<% end %>
+	</table>
+<% end %>
+</p>
+<p>
+<%	unless @feeds.empty? %>
+	Feeds:
+	<table>
+ 	<tr>
+    	<th>name</th>
+    	<th>tweet</th>
+    	<th>date</th>
+	</tr>
+	<% @feeds.each do |feed|%>
+	<tr>
+			<td><%= feed.user[:name] %> </td>
+			<td><%= feed[:text] %> </td>
+			<td><%= feed[:created_at] %> </td>
+		</tr>
+
+	<% end %>
+	</table>
+	<br />
+<% end %>
+</p>
 <%= link_to 'Edit', edit_user_path(@user)		 %> |
 <%= link_to 'Back', users_path %> 
